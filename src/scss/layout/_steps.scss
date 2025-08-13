@@ -117,7 +117,7 @@
         background-size: 100% 100%;
 
         @media(max-width:1024px){
-            flex:  0 100%;
+            flex:  unset;
             padding: 0;
             background-image:unset;
         }
@@ -133,6 +133,8 @@
                 flex-direction: column;
                 column-gap: 0;
                 flex: 0 0 100%;
+                justify-content: start;
+                row-gap: 28px;
             }
         }
 

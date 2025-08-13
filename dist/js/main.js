@@ -105,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn = document.querySelector('.pagination__button--prev');
     const nextBtn = document.querySelector('.pagination__button--next');
     const dotsContainer = document.querySelector('.pagination__counter');
+    const gap = 20; // отступ между слайдами
     let currentIndex = 0;
 
     // Создание точек пагинации динамически
@@ -123,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateSlider() {
         const slideWidth = slides[0].offsetWidth; // ширина одного слайда
-        slider.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+        slider.style.transform = `translateX(-${(slideWidth + gap) * currentIndex}px)`; // добавлен gap
         slider.style.transition = 'transform 0.4s ease';
 
         // Обновляем активную точку
@@ -154,4 +155,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Инициализация
     updateSlider();
 });
+
 
