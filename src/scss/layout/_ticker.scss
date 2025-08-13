@@ -1,0 +1,41 @@
+.ticker{
+    background-color: #F54932;
+    
+
+    &__body{
+        display: flex;
+        padding-top: 18px;
+        padding-bottom: 18px;
+        
+
+        @media(max-width:768px){
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+
+    &__txt{
+        position: relative;
+        font-size: 22px;
+        color: #fff;
+        padding-right: 30px;
+        font-family: 'Merriweather', serif;
+        text-transform: uppercase;
+
+        @media(max-width:768px){
+            font-size: 18px;
+        }
+
+        &::after{
+            position: absolute;
+            display: inline-block;
+            content: "";
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: #fff;
+            right: 11px;
+            top: 11px;
+        }
+    }
+}

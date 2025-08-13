@@ -1,0 +1,167 @@
+ul,
+ol,
+li {
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  outline: none;
+  font-family: "Golos Text", serif;
+}
+
+p{
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: "Golos Text", serif;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.no_scroll {
+  overflow: hidden;
+}
+
+input {
+  margin: 0;
+  outline: 0;
+}
+
+.title-accent{
+  color: #3e9cdc;
+}
+.icon{
+  width: 40px;
+  height: 30px;
+}
+
+h1{
+  margin: 0;
+  color: #313131;
+  font-size: 60px;
+  font-weight: 400;
+  text-transform: uppercase;
+
+  @media(max-width:768px){
+      font-size: 36px;
+  }
+}
+
+h2{
+  margin: 0;
+  color: #313131;
+  font-size: 36px;
+  font-weight: 400;
+  text-transform: uppercase;
+
+  @media(max-width:768px){
+      font-size: 28px;
+  }
+}
+
+
+.span--accent{
+    color: #F54932;
+}
+
+.footnote{
+    color: #3057A2;
+    font-size: 20px;
+
+    @media(max-width:768px){
+        font-size: 18px;
+    }
+}
+
+.pagination{
+    display: flex;
+    align-items: center;
+    column-gap: 14px;
+
+    &__button{
+        position: relative;
+        text-align: center;
+        width: 44px;
+        height: 44px;
+        line-height: 44px;
+        border-radius: 50%;
+        background-color: #313131;
+        outline: none;
+        border: none;
+        transition: 0.3;
+        cursor: pointer;
+
+        @media(max-width:768px){
+          width: 36px;
+          height: 36px;
+        }
+
+        &:hover{
+            background-color: #FBCE51;
+        }
+
+        &--prev{
+            &::after{
+                display: inline-block;
+                content: "";
+                position: absolute;
+                top: 14px;
+                left: 18px;
+                width: 12px;
+                height: 12px;
+                transform: rotate(225deg); 
+                border-top: 2px solid #fff;
+                border-right: 2px solid #fff;
+
+                 @media(max-width:768px){
+                    width: 10px;
+                    height: 10px;
+                    left: 13px;
+                    top: 12px;
+                  }
+            }
+        }
+
+        &--next{
+            &::after{
+                display: inline-block;
+                content: "";
+                position: absolute;
+                top: 14px;
+                left: 14px;
+                width: 12px;
+                height: 12px;
+                transform: rotate(45deg); 
+                border-top: 2px solid #fff;
+                border-right: 2px solid #fff;
+
+                @media(max-width:768px){
+                    width: 10px;
+                    height: 10px;
+                    left: 11px;
+                    top: 12px;
+                }
+            }
+        }
+
+        &--disable{
+            background-color: #D6D6D6;
+            cursor: unset;
+
+            &:hover{
+                background-color: #D6D6D6;
+            }
+        }
+    }
+
+    &__number{
+      &--total{
+        opacity: .6;
+      }
+    }
+}

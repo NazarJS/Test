@@ -1,0 +1,39 @@
+.ui-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 72px;
+    max-width: 263px;
+    width: 100%;
+    padding-right: 49px;
+    padding-left: 49px;
+    font-size: 16px;
+    border-radius: 66px;
+    transition: .3s;
+    
+    
+    // &:hover {
+    //     transform: scale(1.02);
+    // }
+
+    &--bg {
+        background-color: #1F1F1F;
+        color: #fff;
+
+        &:hover{
+            background-color: #FBCE51;
+            color: #1F1F1F;
+        }
+    }
+
+    &--opacity{
+        color: #1F1F1F;
+        border: 1px solid #1F1F1F;
+
+        &:hover{
+            background-color: #1F1F1F;
+            color: #fff;
+        }
+    }
+}

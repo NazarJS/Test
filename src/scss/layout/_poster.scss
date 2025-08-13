@@ -1,0 +1,127 @@
+.poster{
+    margin-bottom: 200px;
+
+    @media(max-width:768px){
+        margin-bottom: 120px;
+    }
+
+    &__body{
+        display: flex;
+        justify-content: space-between;
+        column-gap: 44px;
+
+        @media(max-width:1024px){
+            flex-direction: column;
+        }
+    }
+
+    &__title{
+        font-size: 36px;
+        margin-bottom: 60px;
+
+         @media(max-width:1024px){
+            padding-top: 0;
+            font-size: 28px;
+            margin-bottom: 44px;
+        }
+    }
+
+    &__price{
+        display: inline-block;
+        margin-right: 12px;
+        text-decoration: line-through;
+        text-decoration-color:#F54932;
+    }
+
+    &__img{
+        max-width: 474px;
+        flex: 0 0 474px;
+
+         @media(max-width:1024px){
+            margin-bottom: 24px;
+            flex: unset;
+            max-width: 100%;
+        }
+
+        img{
+            width: 100%;
+        }
+    }
+
+    &__table{
+        width: 100%;
+        margin-bottom: 48px;
+
+        @media(max-width:768px){
+            margin-bottom: 40px;
+        }
+
+        tr{
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #D0D0D0;
+
+            @media(max-width:768px){
+                flex-wrap: wrap;
+                gap: 12px;
+                padding-top: 16px;
+                padding-bottom: 16px;
+            }
+
+            &:first-child{
+                padding-top: 0;
+            }
+
+            &:last-child{
+                border-bottom: 0;
+
+                td{
+                    &:first-child{
+                        padding-bottom: 0;
+                    }
+
+                    &:last-child{
+                        padding-bottom: 0;
+                    }
+                }
+            }
+
+            td{
+                &:first-child{
+                    display: block;
+                    font-size: 20px;
+                    width: 45%;
+                    opacity: 0.7;
+                    border-right: 2px solid #D0D0D0;
+                    padding-top: 16px;
+                    padding-bottom: 16px;
+
+                    @media(max-width:768px){
+                        width: auto;
+                        border-right: unset;
+                        // padding-bottom: 12px;
+                        padding-bottom: 0;
+                        padding-top: 0;
+                    }
+                }
+
+                &:last-child{
+                    display: block;
+                    font-size: 20px;
+                    padding-top: 16px;
+                    padding-bottom: 16px;
+                    padding-left: 16px;
+                    font-weight: 600;
+
+                     @media(max-width:768px){
+                        padding-top: 0;
+                        padding-left: 0;
+                        padding-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+
+   
+}
