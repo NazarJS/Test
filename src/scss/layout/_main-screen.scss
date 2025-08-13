@@ -2,6 +2,11 @@
     padding-top: 124px;
     padding-bottom: 132px;
 
+    @media(max-width:768px){
+        padding-bottom: 291px;
+        padding-top: 90px;
+    }
+
     &__title{
         margin-bottom: 24px;
 
@@ -28,6 +33,7 @@
 
         @media(max-width:768px){
             margin-bottom: 32px;
+            text-align: left;
         }
     }
 
@@ -37,6 +43,10 @@
         background-repeat: no-repeat;
         background-position: center;
         
+        @media(max-width:768px){
+            background-image:url('../images/main-mob1.png') ;
+            background-position: bottom;
+        }
     }
 
     &__content{

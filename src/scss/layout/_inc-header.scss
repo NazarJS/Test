@@ -5,5 +5,9 @@
 
     &__logo{
         max-width: 245px;
+
+        @media(max-width:768px){
+            max-width: 213px;
+        }
     }
 }

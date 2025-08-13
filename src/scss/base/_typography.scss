@@ -96,6 +96,15 @@ h2{
         transition: 0.3;
         cursor: pointer;
 
+        &:disabled{
+          background-color: #D6D6D6;
+            cursor: unset;
+
+            &:hover{
+                background-color: #D6D6D6;
+            }
+        }
+
         @media(max-width:768px){
           width: 36px;
           height: 36px;
@@ -146,15 +155,6 @@ h2{
                     left: 11px;
                     top: 12px;
                 }
-            }
-        }
-
-        &--disable{
-            background-color: #D6D6D6;
-            cursor: unset;
-
-            &:hover{
-                background-color: #D6D6D6;
             }
         }
     }

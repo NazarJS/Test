@@ -1,130 +1,96 @@
-// window.addEventListener("resize", function () {
-//     let viewportWidth = document.documentElement.clientWidth;
-//     if (viewportWidth > 1024) {
-//         document.querySelector(".header__container").classList.remove("mobile-menu");
-//     }
-// });
+function initMemberSlider(sliderSelector) {
+  const slider = document.querySelector(sliderSelector);
+  if (!slider) return;
 
-// const orderSelect = document.querySelector(".main-form-order-select");
-// if (orderSelect) {
-//     orderSelect.addEventListener("click", function () {
-//         this.classList.toggle("main-form-order-select--open");
-//     });
-// }
+  const track = slider.querySelector('.member-slider__track');
+  const slides = slider.querySelectorAll('.member-slider__item');
+  const prevBtn = slider.querySelector('.pagination__button--prev');
+  const nextBtn = slider.querySelector('.pagination__button--next');
+  const currentNum = slider.querySelector('.pagination__number--current');
+  const totalNum = slider.querySelector('.pagination__number--total');
 
-// const burger = document.getElementById("burger");
-// if (burger) {
-//     burger.addEventListener("click", function () {
-//         document.querySelector(".header__container").classList.toggle("mobile-menu");
-//         document.body.classList.toggle("no_scroll");
-//     });
-// }
+  let slideIndex = 0;
+  let slidesPerView = 1;
+  const gap = 30;
+  const totalSlides = slides.length;
 
-// const rangeInput = document.querySelector(".main-form-order-range__input");
-// const valueSpan = document.querySelector(".main-form-order-range__value");
+  if (totalNum) totalNum.textContent = ` / ${totalSlides}`;
 
-// if (rangeInput && valueSpan) {
-//     rangeInput.addEventListener("input", function () {
-//         valueSpan.textContent = `${this.value}%`;
-//     });
-//     valueSpan.textContent = `${rangeInput.value}%`;
-// }
+  function updateSlidesPerView() {
+    slidesPerView = window.innerWidth < 768 ? 1 : 3;
+  }
 
-// const dropdown = document.querySelector(".main-form-order-select__dropdown");
-// const input = document.querySelector(".main-form-order-select__input");
-// const textSpan = document.querySelector(".main-form-order-select__txt");
-// const elements = document.querySelectorAll(".main-form-order__element");
+  function updateSlider() {
+    console.log(slideIndex)
+    if (!slides.length) return;
 
-// if (dropdown && input && textSpan && elements.length > 0) {
-//     elements.forEach(element => {
-//         element.addEventListener("click", function () {
-//             const selectedText = this.textContent;
-//             input.value = selectedText;
-//             textSpan.textContent = selectedText;
-//         });
-//     });
-// }
-const track = document.querySelector('.member-slider__track');
-const slides = document.querySelectorAll('.member-slider__item');
-const prevBtn = document.querySelector('.pagination__button--prev');
-const nextBtn = document.querySelector('.pagination__button--next');
-const currentNum = document.querySelector('.pagination__number--current');
-const totalNum = document.querySelector('.pagination__number--total');
+    const slideWidth = slides[0].offsetWidth;
+    const step = slideWidth + gap;
+    const maxIndex = totalSlides - slidesPerView;
 
-let slideIndex = 0;
-let slidesPerView;
-const totalSlides = slides.length;
-const gap = 30; // px gap между карточками
+    // Круговая прокрутка
+    
+    if (slideIndex > maxIndex) slideIndex = 0;
+  
+    if (slideIndex < 0) slideIndex = maxIndex >= 0 ? maxIndex : 0;
 
-totalNum.textContent = ` / ${totalSlides}`;
+    const moveX = step * slideIndex;
+    track.style.transform = `translateX(${-moveX}px)`;
+    track.style.transition = 'transform 0.4s ease';
 
-function updateSlidesPerView() {
-  slidesPerView = window.innerWidth < 768 ? 1 : 3;
-}
+    if (currentNum) {
+      const visibleNumber = slidesPerView > 1
+        ? Math.min(slideIndex + slidesPerView, totalSlides)
+        : slideIndex + 1;
+      currentNum.textContent = visibleNumber;
+    }
+  }
 
-function updateSlider() {
-  if (!slides.length) return;
-
-  const slideWidth = slides[0].offsetWidth;
-  const step = slideWidth + gap;
-  const maxIndex = totalSlides - slidesPerView;
-
-  // Коррекция индекса в пределах допустимых значений
-  if (slideIndex < 0) slideIndex = maxIndex >= 0 ? maxIndex : 0;
-  if (slideIndex > maxIndex) slideIndex = 0;
-
-  const moveX = step * slideIndex;
-  track.style.transform = `translateX(${-moveX}px)`;
-
-  // Для пагинации: показываем номер последнего видимого слайда (для десктопа)
-  const visibleNumber = slidesPerView > 1
-    ? Math.min(slideIndex + slidesPerView, totalSlides)
-    : slideIndex + 1;
-
-  currentNum.textContent = visibleNumber;
-}
-
-function nextSlide() {
-  slideIndex++;
-  updateSlider();
-}
-
-function prevSlide() {
-  slideIndex--;
-  updateSlider();
-}
-
-nextBtn.addEventListener('click', () => {
-  nextSlide();
-  resetAutoplay();
-});
-
-prevBtn.addEventListener('click', () => {
-  prevSlide();
-  resetAutoplay();
-});
-
-let autoplay;
-
-function resetAutoplay() {
-  clearInterval(autoplay);
-  autoplay = setInterval(() => {
+  function nextSlide() {
     slideIndex++;
     updateSlider();
-  }, 4000);
-}
+  }
 
-window.addEventListener('resize', () => {
-  updateSlidesPerView();
-  slideIndex = 0;
-  updateSlider();
-});
+  function prevSlide() {
+    slideIndex--;
+    updateSlider();
+  }
 
-// Запускаем инициализацию после полной загрузки, чтобы размеры были корректны
-window.addEventListener('load', () => {
+  if (nextBtn) nextBtn.addEventListener('click', () => {
+    console.log(slideIndex)
+    nextSlide();
+    resetAutoplay();
+  });
+
+  if (prevBtn) prevBtn.addEventListener('click', () => {
+    prevSlide();
+    resetAutoplay();
+  });
+
+  let autoplay;
+
+  function resetAutoplay() {
+    clearInterval(autoplay);
+    autoplay = setInterval(() => {
+      slideIndex++;
+      updateSlider();
+    }, 4000);
+  }
+
+  window.addEventListener('resize', () => {
+    updateSlidesPerView();
+    updateSlider();
+  });
+
+  // Инициализация
   updateSlidesPerView();
   updateSlider();
   resetAutoplay();
+}
+
+// Инициализация слайдера после загрузки
+window.addEventListener('DOMContentLoaded', () => {
+  initMemberSlider('.member-slider');
 });
 
 
@@ -133,67 +99,59 @@ window.addEventListener('load', () => {
 
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.querySelector('.steps__grid');
+    const slides = document.querySelectorAll('.steps__grid .slide');
+    const prevBtn = document.querySelector('.pagination__button--prev');
+    const nextBtn = document.querySelector('.pagination__button--next');
+    const dotsContainer = document.querySelector('.pagination__counter');
+    let currentIndex = 0;
 
+    // Создание точек пагинации динамически
+    dotsContainer.innerHTML = '';
+    slides.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.classList.add('pagination__dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => {
+            currentIndex = i;
+            updateSlider();
+        });
+        dotsContainer.appendChild(dot);
+    });
+    const dots = document.querySelectorAll('.pagination__dot');
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   const grid = document.querySelector('.steps__grid');
-//   const items = document.querySelectorAll('.steps-item');
-//   const pagination = document.querySelector('.steps__pagination');
+    function updateSlider() {
+        const slideWidth = slides[0].offsetWidth; // ширина одного слайда
+        slider.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+        slider.style.transition = 'transform 0.4s ease';
 
-//   let currentIndex = 0;
-//   let slidesPerView = 2;
-//   let totalSlides = Math.ceil(items.length / slidesPerView);
+        // Обновляем активную точку
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
 
-//   function createPagination() {
-//     pagination.innerHTML = '';
-//     for (let i = 0; i < totalSlides; i++) {
-//       const btn = document.createElement('button');
-//       if (i === 0) btn.classList.add('active');
-//       btn.addEventListener('click', () => {
-//         currentIndex = i;
-//         updateSlider();
-//         updatePagination();
-//       });
-//       pagination.appendChild(btn);
-//     }
-//   }
+        // Дезактивация кнопок при достижении конца/начала
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === slides.length - 1;
+    }
 
-//   function updateSlider() {
-//     const style = window.getComputedStyle(items[0]);
-//     const width = items[0].offsetWidth;
-//     const marginRight = parseInt(style.marginRight) || 0;
-//     const slideWidth = width + marginRight;
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateSlider();
+        }
+    });
 
-//     const moveX = slideWidth * slidesPerView * currentIndex;
-//     grid.style.transform = `translateX(-${moveX}px)`;
-//   }
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < slides.length - 1) {
+            currentIndex++;
+            updateSlider();
+        }
+    });
 
-//   function updatePagination() {
-//     const dots = pagination.querySelectorAll('button');
-//     dots.forEach((dot, i) => {
-//       dot.classList.toggle('active', i === currentIndex);
-//     });
-//   }
+    // Обновление слайдера при ресайзе окна
+    window.addEventListener('resize', updateSlider);
 
-//   function checkResize() {
-//     if (window.innerWidth <= 1024) {
-//       slidesPerView = 2;
-//       totalSlides = Math.ceil(items.length / slidesPerView);
-//       createPagination();
-//       currentIndex = 0;
-//       updateSlider();
-//       pagination.style.display = 'flex';
-//       grid.style.transition = 'transform 0.3s ease';
-//     } else {
-//       grid.style.transform = '';
-//       grid.style.transition = '';
-//       pagination.style.display = 'none';
-//     }
-//   }
-
-//   window.addEventListener('resize', checkResize);
-
-//   checkResize();
-// });
-
+    // Инициализация
+    updateSlider();
+});
 
